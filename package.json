@@ -1,0 +1,12 @@
+{
+  "name": "natejones_me",
+  "dependencies": {
+    "bower": "^1.7.9",
+    "grunt": "^1.0.1"
+  },
+  "devDependencies": {
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-jekyll": "^0.4.4"
+  }
+}

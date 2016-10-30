@@ -1,0 +1,17 @@
+{
+  "name": "natejones_me",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Nate Jones <n8jones@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
