@@ -18,7 +18,7 @@ email: ""
 description: > # this means to ignore newlines until "baseurl:"
   Hi.  I'm Nate Jones and this is my personal blog.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "http://www.natejones.me" # the base hostname & protocol for your site, e.g. http://example.com
 source: src
 destination: target/site
 twitter_username: n8j1s

@@ -5,6 +5,14 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		// Tasks
 
+		bower: {
+			install: {
+				options: {
+					targetDir: 'target/bower'
+				}
+			}
+		},
+
 		jekyll: {
 			dist: {
 				config: '_config.yml'
@@ -34,8 +42,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-jekyll');
         grunt.loadNpmTasks('grunt-contrib-watch');
         grunt.loadNpmTasks('grunt-contrib-connect');
+	grunt.loadNpmTasks('grunt-bower-task');
 	 
 	// Default task(s).
+	
+	grunt.registerTask('build', ['bower', 'jekyll']);
 	 
-	grunt.registerTask('default', ['jekyll', 'connect', 'watch']);
+	grunt.registerTask('default', ['build', 'connect', 'watch']);
 };
