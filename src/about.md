@@ -1,7 +1,6 @@
 ---
 layout: page
 title: About
-permalink: /about/
 ---
 ![Nate Jones](http://natejones.me/sites/default/files/uploads/2014/08/ProfilePic.jpg)
 
