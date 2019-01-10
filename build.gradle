@@ -1,0 +1,7 @@
+import me.natejones.site.*
+
+plugins {
+	id 'base'
+}
+
+apply plugin: StaticSitePlugin

@@ -1,0 +1,14 @@
+plugins {
+	id 'groovy'
+}
+
+repositories {
+	mavenLocal()
+  mavenCentral()
+}
+
+dependencies {
+	implementation 'org.yaml:snakeyaml:1.23'
+	implementation 'com.vladsch.flexmark:flexmark-all:0.40.4'
+}
+
