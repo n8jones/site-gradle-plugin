@@ -13,6 +13,7 @@ import org.gradle.api.*
  */
 class StaticSitePlugin implements Plugin<Project> {
   void apply(Project project) {
+		def extension = project.extensions.create('site', StaticSiteExtension, project)
 		def pa = project.tasks.create('processAssets', org.gradle.api.tasks.Copy) {
 			from project.file('src/assets')
 			into "$project.buildDir/site/assets"
@@ -21,3 +22,5 @@ class StaticSitePlugin implements Plugin<Project> {
 		project.tasks.create('processContent', ProcessContent).dependsOn pp, pa
   }
 }
+
+
