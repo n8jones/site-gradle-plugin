@@ -5,3 +5,7 @@ plugins {
 }
 
 apply plugin: StaticSitePlugin
+
+site {
+	title = 'NateJones.me test'
+}

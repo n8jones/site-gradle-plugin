@@ -3,7 +3,7 @@
 		<title>
 			{% block title %}
 			{% if page.title is not empty %} {{page.title}} |{% endif %}
-			Nate Jones
+			{{ site.title }}
 			{% endblock %}
 		</title>
 		<link rel="stylesheet" type="text/css" href="{{baseUrl}}assets/main.css"/>

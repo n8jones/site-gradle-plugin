@@ -1,6 +1,9 @@
 package me.natejones.site
 
 import org.gradle.api.*
+import org.gradle.api.file.*
+import org.gradle.api.provider.*
+
 /**
  * - Pre-Process Content
  *   - Extract Yaml Front Matter
@@ -14,12 +17,19 @@ import org.gradle.api.*
 class StaticSitePlugin implements Plugin<Project> {
   void apply(Project project) {
 		def extension = project.extensions.create('site', StaticSiteExtension, project)
-		def pa = project.tasks.create('processAssets', org.gradle.api.tasks.Copy) {
+		def processAssets = project.tasks.create('processAssets', org.gradle.api.tasks.Copy) {
 			from project.file('src/assets')
 			into "$project.buildDir/site/assets"
 		}
-		def pp = project.tasks.create('preProcessContent', PreProcessContent)
-		project.tasks.create('processContent', ProcessContent).dependsOn pp, pa
+		def preProcessContent = project.tasks.create('preProcessContent', PreProcessContent)
+		def processContent = project.tasks.create('processContent', ProcessContent){
+			yamlDir.set(extension.yamlDir)
+			rawDir.set(extension.rawDir)
+			outputDir.set(extension.outputDir)
+			templateDir.set(extension.templateDir)
+			title.set(extension.title)
+		}
+		processContent.dependsOn preProcessContent, processAssets
   }
 }
 

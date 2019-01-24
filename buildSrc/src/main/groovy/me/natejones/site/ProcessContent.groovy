@@ -11,8 +11,10 @@ import com.vladsch.flexmark.html.HtmlRenderer
 import com.vladsch.flexmark.parser.Parser
 
 import org.gradle.api.*
+import org.gradle.api.file.*
 import org.gradle.api.tasks.*
 import org.gradle.api.tasks.incremental.*
+import org.gradle.api.provider.*
 
 import org.snakeyaml.engine.v1.api.*
 
@@ -21,16 +23,19 @@ class ProcessContent extends DefaultTask {
   static final Parser PARSER = Parser.builder().extensions(EXTS).build()
   static final HtmlRenderer RENDERER = HtmlRenderer.builder().extensions(EXTS).build()
 
+	@Input
+	final Property<String> title = project.objects.property(String)
+
 	@InputDirectory
-	File yamlDir = project.file("$project.buildDir/content/front-matter")
+	final DirectoryProperty yamlDir = project.objects.directoryProperty()
 	
 	@InputDirectory
-	File rawDir = project.file("$project.buildDir/content/raw")
+	final DirectoryProperty rawDir = project.objects.directoryProperty()
 
-	File templateDir = project.file('src/layouts/')
+	final DirectoryProperty templateDir = project.objects.directoryProperty()
 
 	@OutputDirectory
-	File outputDir = project.file("$project.buildDir/site")
+	final DirectoryProperty outputDir = project.objects.directoryProperty()
 
 	@TaskAction
   void execute(IncrementalTaskInputs inputs) {
@@ -38,8 +43,11 @@ class ProcessContent extends DefaultTask {
 		//if (!inputs.incremental)
     //  project.delete(outputDir.listFiles())
 
-		def yamlPath = yamlDir.toPath()
-		def ctx = [pages: [:]]
+		def yamlPath = yamlDir.get().asFile.toPath()
+		def ctx = [
+			site: [ title: title.get() ],
+			pages: [:]
+		]
 
 		logger.info 'Loading front matter'
 		def settings = new LoadSettingsBuilder().build()
@@ -55,20 +63,20 @@ class ProcessContent extends DefaultTask {
 			ctx.pages[basename] = page
 		}
 
-		ctx.baseUrl = outputDir.toURL()
+		ctx.baseUrl = outputDir.get().asFile.toURL()
 
 		logger.debug "Context: $ctx"
 
 		logger.info 'Rendering content'
 
-		def rawPath = rawDir.toPath()
+		def rawPath = rawDir.get().asFile.toPath()
 		def getBasename = { it.startsWith(yamlPath) ? yamlPath.relativize(it).toString()[0..-6] : rawPath.relativize(it).toString() }
-		def outputPath = outputDir.toPath()
+		def outputPath = outputDir.get().asFile.toPath()
 
 		def floader = new FileLoader()
-		floader.prefix = templateDir.toString()
+		floader.prefix = templateDir.get().asFile.toString()
 		floader.suffix = '.html'
-		def pebble = new PebbleEngine.Builder().loader(floader).build()		
+		def pebble = new PebbleEngine.Builder().loader(floader).build()	
 		
 		inputs.outOfDate { change ->
       if (change.file.directory) return
