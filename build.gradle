@@ -1,11 +1,16 @@
-import me.natejones.site.*
-
 plugins {
-	id 'base'
+	id 'groovy'
 }
 
-apply plugin: StaticSitePlugin
-
-site {
-	title = 'NateJones.me test'
+repositories {
+	mavenLocal()
+  mavenCentral()
 }
+
+dependencies {
+	implementation 'com.vladsch.flexmark:flexmark-all:0.40.4'
+	implementation 'io.pebbletemplates:pebble:3.0.7'
+	implementation 'org.snakeyaml:snakeyaml-engine:1.0'
+	testImplementation 'junit:junit:4.12'
+}
+
