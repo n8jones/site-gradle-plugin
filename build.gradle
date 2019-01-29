@@ -1,6 +1,11 @@
 plugins {
+	id 'java-gradle-plugin'
 	id 'groovy'
+	id 'maven'
 }
+
+group = 'me.natejones.site'
+version = '1.0.0-SNAPSHOT'
 
 repositories {
 	mavenLocal()
@@ -12,5 +17,16 @@ dependencies {
 	implementation 'io.pebbletemplates:pebble:3.0.7'
 	implementation 'org.snakeyaml:snakeyaml-engine:1.0'
 	testImplementation 'junit:junit:4.12'
+}
+
+
+
+gradlePlugin {
+  plugins {
+    sitePlugin {
+      id = 'me.natejones.site'
+      implementationClass = 'me.natejones.site.StaticSitePlugin'
+    }
+  }
 }
 

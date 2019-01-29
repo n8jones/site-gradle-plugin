@@ -28,6 +28,7 @@ class StaticSitePlugin implements Plugin<Project> {
 			outputDir.set(extension.outputDir)
 			templateDir.set(extension.templateDir)
 			title.set(extension.title)
+			siteSettings.set(extension.settings)
 		}
 		processContent.dependsOn preProcessContent, processAssets
   }

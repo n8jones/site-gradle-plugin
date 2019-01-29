@@ -28,5 +28,6 @@ class StaticSiteExtension {
 		templateDir = project.objects.directoryProperty()
 		templateDir.set(project.layout.projectDirectory.dir('src/layouts'))
 		settings = project.objects.mapProperty(String, Object)
+		settings.set([:])
 	}
 }

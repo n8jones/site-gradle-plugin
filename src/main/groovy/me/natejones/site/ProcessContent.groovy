@@ -26,6 +26,9 @@ class ProcessContent extends DefaultTask {
 	@Input
 	final Property<String> title = project.objects.property(String)
 
+	@Input
+	final MapProperty<String, Object> siteSettings = project.objects.mapProperty(String, Object)
+
 	@InputDirectory
 	final DirectoryProperty yamlDir = project.objects.directoryProperty()
 	
@@ -45,7 +48,10 @@ class ProcessContent extends DefaultTask {
 
 		def yamlPath = yamlDir.get().asFile.toPath()
 		def ctx = [
-			site: [ title: title.get() ],
+			site: [
+				title: title.get(),
+				settings: siteSettings.get(),
+			],
 			pages: [:]
 		]
 
